@@ -1,3 +1,6 @@
+## This file is being maintained by Puppet
+## DO NOT EDIT
+
 ENABLED=1
 OPTIONS="--create-prefs --max-children 5 --helper-home-dir --allow-tell \
          --listen-ip=127.0.0.1 --allowed-ips=127.0.0.1"
