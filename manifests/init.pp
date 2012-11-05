@@ -36,11 +36,7 @@ class spamassassin {
         "/etc/mail/spamassassin/v312.pre":
             source  => "puppet:///modules/spamassassin/v312.pre",
             require => Package[ $package_list ],
-            notify  => Service["spamassassin"];
-        "/etc/cron.d/sa-update":
-            mode    => 600,
-            source  => "puppet:///modules/spamassassin/cron.d-sa-update",
-            require => Package["spamassassin"];
+            notify  => Service["spamassassin"]
     } # file
 
     if $::osfamily == 'Debian' {
