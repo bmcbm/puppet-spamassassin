@@ -11,6 +11,7 @@ class spamassassin {
                               'perl-Mail-DomainKeys', 'perl-Mail-SPF',
                               'perl-Mail-SPF-Query', 'perl-Net-Ident',
                               'spamassassin' ]
+            $sa_update = '/usr/share/spamassassin/sa-upcate.cron 2>&1 | tee -a /var/log/sa-update.log'
         }
         Debian: {
             ## Debian seems to not have the following perl packages.
@@ -22,6 +23,7 @@ class spamassassin {
                               'libgeography-countries-perl',
                               'libmail-dkim-perl', 'libmail-spf-perl',
                               'libnet-ident-perl', 'spamassassin', 'spamc' ]
+            $sa_update = '/usr/bin/sa-update && /etc/init.d/spamassassin reload'
         }
         default: {
             fail("Module ${module_name} does not support ${::operatingsystem}")
@@ -48,7 +50,13 @@ class spamassassin {
             notify  => Service['spamassassin'],
         }
     }
-            
+
+    cron { 'sa-update':
+        command => $sa_update,
+        user    => 'root',
+        hour    => 4,
+        minute  => 10,
+    }
 
     service { "spamassassin":
         ensure  => running,
