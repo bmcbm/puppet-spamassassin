@@ -4,22 +4,36 @@
 #
 class spamassassin {
 
-    package {
-        "perl-Encode-Detect":;
-        "perl-Geography-Countries":;
-        "perl-IP-Country":;
-        "perl-Mail-DKIM":;
-        "perl-Mail-DomainKeys":;
-        "perl-Mail-SPF":;
-        "perl-Mail-SPF-Query":;
-        "perl-Net-Ident":;
-        "spamassassin":;
-    } # package
+    case $::osfamily {
+        RedHat: {
+            $package_list = [ 'perl-Encode-Detect', 'perl-Geography-Countries',
+                              'perl-IP-Country', 'perl-Mail-DKIM',
+                              'perl-Mail-DomainKeys', 'perl-Mail-SPF',
+                              'perl-Mail-SPF-Query', 'perl-Net-Ident',
+                              'spamassassin' ]
+        }
+        Debian: {
+            ## Debian seems to not have the following perl packages.
+            ## * perl-IP-Country
+            ## * perl-Mail-DomainKeys
+            ## * perl-Mail-SPF-Query
+            ## * 
+            $package_list = [ 'libencode-detect-perl',
+                              'libgeography-countries-perl',
+                              'libmail-dkim-perl', 'libmail-spf-perl',
+                              'libnet-ident-perl', 'spamassassin', 'spamc' ]
+        }
+        default: {
+            fail("Module ${module_name} does not support ${::operatingsystem}")
+        }
+    }
+
+    package { $package_list: }
 
     file {
         "/etc/mail/spamassassin/v312.pre":
             source  => "puppet:///modules/spamassassin/v312.pre",
-            require => Package["spamassassin", "perl-Mail-DKIM" ],
+            require => Package[ $package_list ],
             notify  => Service["spamassassin"];
         "/etc/cron.d/sa-update":
             mode    => 600,

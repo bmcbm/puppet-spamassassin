@@ -2,4 +2,8 @@ spamassassin
 
 Released 20100701 - Garrett Honeycutt - GPLv2
 
+Tested on:
+ * RedHat Enterprise 5
+ * Debian testing (wheezy)
+
 Manage spamassassin - http://spamassassin.apache.org/
