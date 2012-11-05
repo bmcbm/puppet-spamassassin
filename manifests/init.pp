@@ -41,6 +41,15 @@ class spamassassin {
             require => Package["spamassassin"];
     } # file
 
+    if $::osfamily == 'Debian' {
+        file { "/etc/default/spamassassin":
+            source  => 'puppet:///modules/spamassassin/spamassassin-default',
+            require => Package['spamassassin'],
+            notify  => Service['spamassassin'],
+        }
+    }
+            
+
     service { "spamassassin":
         ensure  => running,
         enable  => true,

@@ -1,0 +1,5 @@
+ENABLED=1
+OPTIONS="--create-prefs --max-children 5 --helper-home-dir --allow-tell \
+         --listen-ip=127.0.0.1 --allowed-ips=127.0.0.1"
+PIDFILE="/var/run/spamd.pid"
+CRON=1
