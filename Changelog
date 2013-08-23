@@ -1,0 +1,6 @@
+1.0.1:
+    Initial fork from Garrett's 1.0.0. Contains my Debian additions which
+    are somewhat tested (namely, I'm using them).
+
+1.0.0:
+    Same as https://github.com/ghoneycutt/puppet-spamassassin 1.0.0
