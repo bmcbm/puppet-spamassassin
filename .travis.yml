@@ -3,7 +3,7 @@ rvm:
   - 1.9.3
 notifications:
   email:
-    - houdini+travis@clanspum.net
+    - 'houdini+travis@clanspum.net'
 env:
   - PUPPET_VERSION=2.6.18
   - PUPPET_VERSION=2.7.23
