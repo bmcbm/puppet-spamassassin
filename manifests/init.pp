@@ -18,7 +18,6 @@ class spamassassin {
             ## * perl-IP-Country
             ## * perl-Mail-DomainKeys
             ## * perl-Mail-SPF-Query
-            ## * 
             $package_list = [ 'libencode-detect-perl',
                               'libgeography-countries-perl',
                               'libmail-dkim-perl', 'libmail-spf-perl',
@@ -33,14 +32,14 @@ class spamassassin {
     package { $package_list: }
 
     file {
-        "/etc/mail/spamassassin/v312.pre":
-            source  => "puppet:///modules/spamassassin/v312.pre",
+        '/etc/mail/spamassassin/v312.pre':
+            source  => 'puppet:///modules/spamassassin/v312.pre',
             require => Package[ $package_list ],
-            notify  => Service["spamassassin"]
+            notify  => Service['spamassassin']
     } # file
 
     if $::osfamily == 'Debian' {
-        file { "/etc/default/spamassassin":
+        file { '/etc/default/spamassassin':
             source  => 'puppet:///modules/spamassassin/spamassassin-default',
             require => Package['spamassassin'],
             notify  => Service['spamassassin'],
@@ -54,10 +53,10 @@ class spamassassin {
         minute  => 10,
     }
 
-    service { "spamassassin":
+    service { 'spamassassin':
         ensure  => running,
         enable  => true,
-        require => Package["spamassassin"],
-        pattern => "spamd",
+        require => Package['spamassassin'],
+        pattern => 'spamd',
     } # service
 } # class spamassassin
