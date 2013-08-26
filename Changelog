@@ -1,3 +1,6 @@
+1.0.3:
+    Had to change case in the module name.
+
 1.0.2:
     I had a goofy typo in 1.0.1, it didn't actually become a module.
     Fail.
