@@ -2,7 +2,13 @@
 #
 # This module manages spamassassin
 #
-class spamassassin {
+class spamassassin(
+  $listenip = '127.0.0.1',
+  $allowedips = '127.0.0.1',
+  $helperhomedir = '',
+  $nouserconfig = false,
+  $allowtell = false
+) {
   case $::osfamily {
     RedHat: {
       $package_list = [
@@ -43,7 +49,7 @@ class spamassassin {
 
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
-      source  => 'puppet:///modules/spamassassin/spamassassin-default',
+      content => template('spamassassin/spamassassin-default'),
       require => Package['spamassassin'],
       notify  => Service['spamassassin'],
     }
