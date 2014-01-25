@@ -41,11 +41,46 @@ class spamassassin(
   package { $package_list: }
 
   file {
+    '/etc/mail/spamassassin/init.pre':
+      source  => 'puppet:///modules/spamassassin/init.pre',
+      require => Package[ $package_list ],
+      notify  => Service['spamassassin']
+  }
+
+  file {
+    '/etc/mail/spamassassin/local.cf':
+      source  => 'puppet:///modules/spamassassin/local.cf',
+      require => Package[ $package_list ],
+      notify  => Service['spamassassin']
+  }
+
+  file {
+    '/etc/mail/spamassassin/v310.pre':
+      source  => 'puppet:///modules/spamassassin/v310.pre',
+      require => Package[ $package_list ],
+      notify  => Service['spamassassin']
+  }
+
+  file {
     '/etc/mail/spamassassin/v312.pre':
       source  => 'puppet:///modules/spamassassin/v312.pre',
       require => Package[ $package_list ],
       notify  => Service['spamassassin']
-  } # file
+  }
+
+  file {
+    '/etc/mail/spamassassin/v320.pre':
+      source  => 'puppet:///modules/spamassassin/v320.pre',
+      require => Package[ $package_list ],
+      notify  => Service['spamassassin']
+  }
+
+  file {
+    '/etc/mail/spamassassin/v330.pre':
+      source  => 'puppet:///modules/spamassassin/v330.pre',
+      require => Package[ $package_list ],
+      notify  => Service['spamassassin']
+  }
 
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
