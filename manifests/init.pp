@@ -7,7 +7,8 @@ class spamassassin(
   $allowedips = '127.0.0.1',
   $helperhomedir = '',
   $nouserconfig = false,
-  $allowtell = false
+  $allowtell = false,
+  $report_safe = 1
 ) {
   case $::osfamily {
     RedHat: {
@@ -49,7 +50,7 @@ class spamassassin(
 
   file {
     '/etc/mail/spamassassin/local.cf':
-      source  => 'puppet:///modules/spamassassin/local.cf',
+      content => template('spamassassin/local.cf'),
       require => Package[ $package_list ],
       notify  => Service['spamassassin']
   }
