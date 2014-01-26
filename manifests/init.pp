@@ -8,7 +8,8 @@ class spamassassin(
   $helperhomedir = '',
   $nouserconfig = false,
   $allowtell = false,
-  $report_safe = 1
+  $report_safe = 1,
+  $trusted_networks = '212.17.35.'
 ) {
   case $::osfamily {
     RedHat: {
