@@ -9,7 +9,9 @@ class spamassassin(
   $nouserconfig = false,
   $allowtell = false,
   $report_safe = 1,
-  $trusted_networks = '212.17.35.'
+  $trusted_networks = '212.17.35.',
+  $whitelist_from = [],
+  $blacklist_from = [],
 ) {
   case $::osfamily {
     RedHat: {

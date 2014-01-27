@@ -83,3 +83,9 @@ ifplugin Mail::SpamAssassin::Plugin::Shortcircuit
 
 endif # Mail::SpamAssassin::Plugin::Shortcircuit
 
+<% @whitelist_from.each do |val| -%>
+whitelist_from <%= val %>
+<% end -%>
+<% @blacklist_from.each do |val| -%>
+blacklist_from <%= val %>
+<% end -%>
