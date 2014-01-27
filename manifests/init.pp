@@ -9,7 +9,7 @@ class spamassassin(
   $nouserconfig = false,
   $allowtell = false,
   $report_safe = 1,
-  $trusted_networks = '212.17.35.',
+  $trusted_networks = '', # e.g. '192.168.'
   $whitelist_from = [],
   $blacklist_from = [],
 ) {
