@@ -1,3 +1,10 @@
+1.0.4:
+    A bunch of help from @mark0n:
+    - Configure listening IP instead of assuming localhost
+    - Put more of the default files in place instead of assuming the
+      package Did The Right Thing
+    - Parameterized the class to support all the options
+
 1.0.3:
     Had to change case in the module name.
 
