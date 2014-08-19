@@ -1,17 +1,17 @@
-# Class: spamassassin
+# == Class: spamassassin
 #
 # This module manages spamassassin
 #
-class spamassassin(
-  $listenip = '127.0.0.1',
-  $allowedips = '127.0.0.1',
-  $helperhomedir = '',
-  $nouserconfig = false,
-  $allowtell = false,
-  $report_safe = 1,
+class spamassassin (
+  $listenip         = '127.0.0.1',
+  $allowedips       = '127.0.0.1',
+  $helperhomedir    = '',
+  $nouserconfig     = false,
+  $allowtell        = false,
+  $report_safe      = 1,
   $trusted_networks = '', # e.g. '192.168.'
-  $whitelist_from = [],
-  $blacklist_from = [],
+  $whitelist_from   = [],
+  $blacklist_from   = [],
 ) {
   case $::osfamily {
     RedHat: {
@@ -38,52 +38,46 @@ class spamassassin(
       $sa_update = '/usr/bin/sa-update && /etc/init.d/spamassassin reload'
     }
     default: {
-      fail("Module ${module_name} does not support ${::operatingsystem}")
+      fail("Class spamassassin supports osfamilies RedHat and Debian. Detected osfamily is ${::osfamily}.")
     }
   }
 
   package { $package_list: }
 
-  file {
-    '/etc/mail/spamassassin/init.pre':
-      source  => 'puppet:///modules/spamassassin/init.pre',
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/init.pre':
+    source  => 'puppet:///modules/spamassassin/init.pre',
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
-  file {
-    '/etc/mail/spamassassin/local.cf':
-      content => template('spamassassin/local.cf'),
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/local.cf':
+    content => template('spamassassin/local.cf'),
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
-  file {
-    '/etc/mail/spamassassin/v310.pre':
-      source  => 'puppet:///modules/spamassassin/v310.pre',
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/v310.pre':
+    source  => 'puppet:///modules/spamassassin/v310.pre',
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
-  file {
-    '/etc/mail/spamassassin/v312.pre':
-      source  => 'puppet:///modules/spamassassin/v312.pre',
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/v312.pre':
+    source  => 'puppet:///modules/spamassassin/v312.pre',
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
-  file {
-    '/etc/mail/spamassassin/v320.pre':
-      source  => 'puppet:///modules/spamassassin/v320.pre',
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/v320.pre':
+    source  => 'puppet:///modules/spamassassin/v320.pre',
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
-  file {
-    '/etc/mail/spamassassin/v330.pre':
-      source  => 'puppet:///modules/spamassassin/v330.pre',
-      require => Package[ $package_list ],
-      notify  => Service['spamassassin']
+  file { '/etc/mail/spamassassin/v330.pre':
+    source  => 'puppet:///modules/spamassassin/v330.pre',
+    require => Package[ $package_list ],
+    notify  => Service['spamassassin']
   }
 
   if $::osfamily == 'Debian' {
@@ -106,5 +100,5 @@ class spamassassin(
     enable  => true,
     require => Package['spamassassin'],
     pattern => 'spamd',
-  } # service
-} # class spamassassin
+  }
+}

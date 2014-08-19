@@ -1,3 +1,6 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
 # This is the right place to customize your installation of SpamAssassin.
 #
 # See 'perldoc Mail::SpamAssassin::Conf' for details of what can be
@@ -25,4 +28,3 @@
 # usable as input for other rules
 #
 loadplugin Mail::SpamAssassin::Plugin::FreeMail
-

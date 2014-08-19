@@ -1,5 +1,5 @@
-## This file is being maintained by Puppet
-## DO NOT EDIT
+# This file is being maintained by Puppet.
+# DO NOT EDIT
 
 ENABLED=1
 OPTIONS="--create-prefs \
