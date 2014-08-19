@@ -51,7 +51,7 @@ class spamassassin (
   }
 
   file { '/etc/mail/spamassassin/local.cf':
-    content => template('spamassassin/local.cf'),
+    content => template('spamassassin/local.cf.erb'),
     require => Package[ $package_list ],
     notify  => Service['spamassassin']
   }
@@ -82,7 +82,7 @@ class spamassassin (
 
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
-      content => template('spamassassin/spamassassin-default'),
+      content => template('spamassassin/spamassassin-default.erb'),
       require => Package['spamassassin'],
       notify  => Service['spamassassin'],
     }
