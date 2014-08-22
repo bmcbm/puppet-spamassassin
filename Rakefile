@@ -5,7 +5,7 @@ PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
 
-task :default => [:spec, :lint, :syntax]
+task :default => [:spec, :lint, :syntax, :validate]
 task :test => :default
 
 desc 'Run puppet in noop mode and check for syntax errors.'
