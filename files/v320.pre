@@ -1,3 +1,6 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
 # This is the right place to customize your installation of SpamAssassin.
 #
 # See 'perldoc Mail::SpamAssassin::Conf' for details of what can be
@@ -29,7 +32,7 @@ loadplugin Mail::SpamAssassin::Plugin::HTTPSMismatch
 loadplugin Mail::SpamAssassin::Plugin::URIDetail
 
 # Shortcircuit - stop evaluation early if high-accuracy rules fire
-# 
+#
 # loadplugin Mail::SpamAssassin::Plugin::Shortcircuit
 
 # Plugins which used to be EvalTests.pm
@@ -61,4 +64,3 @@ loadplugin Mail::SpamAssassin::Plugin::VBounce
 # ImageInfo - rules to match metadata of image attachments
 #
 loadplugin Mail::SpamAssassin::Plugin::ImageInfo
-

@@ -10,7 +10,6 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
-script: bundle exec rake test
 env:
   - PUPPET_VERSION="~> 3.2.0"
   - PUPPET_VERSION="~> 3.3.0"
@@ -25,4 +24,6 @@ matrix:
     env: PUPPET_VERSION="~> 3.3.0"
   - rvm: 2.1.0
     env: PUPPET_VERSION="~> 3.4.0"
-
+before_script: 'gem install --no-ri --no-rdoc bundler'
+script: 'bundle exec rake validate && bundle exec rake lint && SPEC_OPTS="--format documentation" bundle exec rake spec'
+gemfile: Gemfile
