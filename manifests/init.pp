@@ -46,7 +46,7 @@ class spamassassin (
     }
   }
 
-  package { $package_list: 
+  package { $package_list:
     ensure => $package_ensure,
   }
 
