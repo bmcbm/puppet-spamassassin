@@ -3,6 +3,7 @@
 # This module manages spamassassin
 #
 class spamassassin (
+  $maxchildren      = 5,
   $listenip         = '127.0.0.1',
   $allowedips       = '127.0.0.1',
   $helperhomedir    = '',
