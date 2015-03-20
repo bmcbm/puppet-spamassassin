@@ -3,20 +3,29 @@
 # This module manages spamassassin
 #
 class spamassassin (
-  $maxchildren      = 5,
-  $listenip         = '127.0.0.1',
   $allowedips       = '127.0.0.1',
-  $helperhomedir    = '',
-  $nouserconfig     = false,
   $allowtell        = false,
+  $blacklist_from   = [],
+  $createprefs      = false,
+  $cron_ensure      = present,
+  $helperhomedir    = '',
+  $listenip         = '127.0.0.1',
+  $local            = false,
+  $maxchildren      = 5,
+  $maxconnperchild  = 200,
+  $maxspare         = 2,
+  $minchildren      = 1,
+  $minspare         = 2,
+  $nouserconfig     = false,
+  $package_ensure   = latest,
   $report_safe      = 1,
+  $roundrobin       = false,
+  $service_enable   = true,
+  $service_ensure   = running,
+  $syslog           = 'mail',
   $trusted_networks = '', # e.g. '192.168.'
   $whitelist_from   = [],
-  $blacklist_from   = [],
-  $package_ensure   = latest,
-  $service_ensure   = running,
-  $service_enable   = true,
-  $cron_ensure      = present,
+
 ) {
   case $::osfamily {
     RedHat: {
