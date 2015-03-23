@@ -12,12 +12,15 @@ OPTIONS="--min-children=<%= @minchildren %> \
          --listen-ip=<%= @listenip %> \
          --allowed-ips=<%= @allowedips %> \
          --syslog=<%= @syslog %> \
-         --username=debian-spamd\
-         <% if @roundrobin -%> --round-robin \ <%- end %>
-         <% if @nouserconfig -%> --nouser-config \ <%- end %>
-         <% if @allowtell -%> --allow-tell \ <%- end %>
-         <% if @local -%> --local \ <%- end %>
-         <% if @createprefs -%> --create-prefs \ \ <%- end %>
-         "
+         <%- if @roundrobin -%> --round-robin \<%- end -%>
+         <%- if @nouserconfig -%> --nouser-config \<%- end -%>
+         <%- if @allowtell -%> --allow-tell \<%- end -%>
+         <%- if @local -%> --local \<%- end -%>
+         <%- if @createprefs -%> --create-prefs \<%- end -%>
+         --username=debian-spamd"
 PIDFILE="/var/run/spamd.pid"
+<% if @cron_ensure == 'present' %>
 CRON=1
+<% else %>
+CRON=0
+<% end %>
