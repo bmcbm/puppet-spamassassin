@@ -1,14 +1,26 @@
 # This file is being maintained by Puppet.
 # DO NOT EDIT
 
-ENABLED=1
-OPTIONS="--create-prefs \
-         --max-children 5 \
+ENABLED=<% if @service_enable %>1<% else %>0<% end %>
+
+OPTIONS="--min-children=<%= @minchildren %> \
+         --max-children=<%= @maxchildren %> \
+         --min-spare=<%= @minspare %> \
+         --max-spare=<%= @maxspare %> \
+         --max-conn-per-child=<%= @maxconnperchild %> \
          --helper-home-dir=<%= @helperhomedir %> \
          --listen-ip=<%= @listenip %> \
          --allowed-ips=<%= @allowedips %> \
-         --username=debian-spamd<% if @nouserconfig %> \
-         --nouser-config<% end %><% if @allowtell %> \
-         --allow-tell<% end %>"
+         --syslog=<%= @syslog %> \
+         <%- if @roundrobin -%> --round-robin \<%- end -%>
+         <%- if @nouserconfig -%> --nouser-config \<%- end -%>
+         <%- if @allowtell -%> --allow-tell \<%- end -%>
+         <%- if @local -%> --local \<%- end -%>
+         <%- if @createprefs -%> --create-prefs \<%- end -%>
+         --username=debian-spamd"
 PIDFILE="/var/run/spamd.pid"
+<% if @cron_ensure == 'present' %>
 CRON=1
+<% else %>
+CRON=0
+<% end %>

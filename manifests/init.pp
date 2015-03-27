@@ -3,15 +3,29 @@
 # This module manages spamassassin
 #
 class spamassassin (
-  $listenip         = '127.0.0.1',
   $allowedips       = '127.0.0.1',
-  $helperhomedir    = '',
-  $nouserconfig     = false,
   $allowtell        = false,
+  $blacklist_from   = [],
+  $createprefs      = false,
+  $cron_ensure      = present,
+  $helperhomedir    = '',
+  $listenip         = '127.0.0.1',
+  $local            = false,
+  $maxchildren      = 5,
+  $maxconnperchild  = 200,
+  $maxspare         = 2,
+  $minchildren      = 1,
+  $minspare         = 2,
+  $nouserconfig     = false,
+  $package_ensure   = latest,
   $report_safe      = 1,
+  $roundrobin       = false,
+  $service_enable   = true,
+  $service_ensure   = running,
+  $syslog           = 'mail',
   $trusted_networks = '', # e.g. '192.168.'
   $whitelist_from   = [],
-  $blacklist_from   = [],
+
 ) {
   case $::osfamily {
     RedHat: {
@@ -42,7 +56,9 @@ class spamassassin (
     }
   }
 
-  package { $package_list: }
+  package { $package_list:
+    ensure => $package_ensure,
+  }
 
   file { '/etc/mail/spamassassin/init.pre':
     source  => 'puppet:///modules/spamassassin/init.pre',
@@ -89,6 +105,7 @@ class spamassassin (
   }
 
   cron { 'sa-update':
+    ensure  => $cron_ensure,
     command => $sa_update,
     user    => 'root',
     hour    => 4,
@@ -96,8 +113,8 @@ class spamassassin (
   }
 
   service { 'spamassassin':
-    ensure  => running,
-    enable  => true,
+    ensure  => $service_ensure,
+    enable  => $service_enable,
     require => Package['spamassassin'],
     pattern => 'spamd',
   }

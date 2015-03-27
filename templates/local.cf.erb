@@ -24,8 +24,9 @@ report_safe <%= @report_safe %>
 #   Set which networks or hosts are considered 'trusted' by your mail
 #   server (i.e. not spammers)
 #
+<% if @trusted_networks %>
 trusted_networks <%= @trusted_networks %>
-
+<% end %>
 
 #   Set file-locking method (flock is not safe over NFS, but is faster)
 #
