@@ -1,13 +1,12 @@
 {
   "name": "BillWeiss-spamassassin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "BillWeiss",
-  "summary": "Module to manage SpamAssassin",
   "license": "GPLv2",
-  "source": "",
-  "project_page": "https://github.com/BillWeiss/puppet-spamassassin",
-  "issues_url": null,
-  "description": "Module to manage SpamAssassin.  Forked from ghoneycutt/puppet-spamassassin 1.0.0",
+  "source": "https://github.com/BillWeiss/puppet-spamassassin",
+  "project_page": "https://forge.puppetlabs.com/BillWeiss/spamassassin",
+  "issues_url": "https://github.com/BillWeiss/puppet-spamassassin/issues",
+  "summary": "Module to manage SpamAssassin in spamc mode",
   "requirements": [
     {
       "name": "pe",
