@@ -9,5 +9,6 @@ GPLv2 licensed as his was
 Tested on:
  * RedHat Enterprise 5
  * Debian testing (wheezy)
+ * Gentoo Linux
 
 Manage spamassassin - http://spamassassin.apache.org/

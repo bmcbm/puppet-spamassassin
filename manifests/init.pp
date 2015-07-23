@@ -37,6 +37,8 @@ class spamassassin (
         'spamassassin'
       ]
       $sa_update = '/usr/share/spamassassin/sa-update.cron 2>&1 | tee -a /var/log/sa-update.log'
+      $sa_path = '/etc/mail/spamassassin'
+      $sa_service = 'spamassassin'
     }
     Debian: {
       ## Debian seems to not have the following perl packages.
@@ -50,9 +52,19 @@ class spamassassin (
         'libnet-ident-perl', 'spamassassin', 'spamc'
       ]
       $sa_update = '/usr/bin/sa-update && /etc/init.d/spamassassin reload'
+      $sa_path = '/etc/mail/spamassassin'
+      $sa_service = 'spamassassin'
+    }
+    Gentoo: {
+      $package_list = [
+        'spamassassin'
+      ]
+      $sa_update = '/usr/bin/sa-update && /etc/init.d/spamd reload'
+      $sa_path = '/etc/spamassassin'
+      $sa_service = 'spamd'
     }
     default: {
-      fail("Class spamassassin supports osfamilies RedHat and Debian. Detected osfamily is ${::osfamily}.")
+      fail("Class spamassassin supports osfamilies RedHat, Debian and Gentoo. Detected osfamily is ${::osfamily}.")
     }
   }
 
@@ -60,47 +72,47 @@ class spamassassin (
     ensure => $package_ensure,
   }
 
-  file { '/etc/mail/spamassassin/init.pre':
+  file { "${sa_path}/init.pre":
     source  => 'puppet:///modules/spamassassin/init.pre',
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
-  file { '/etc/mail/spamassassin/local.cf':
+  file { "${sa_path}/local.cf":
     content => template('spamassassin/local.cf.erb'),
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
-  file { '/etc/mail/spamassassin/v310.pre':
+  file { "${sa_path}/v310.pre":
     source  => 'puppet:///modules/spamassassin/v310.pre',
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
-  file { '/etc/mail/spamassassin/v312.pre':
+  file { "${sa_path}/v312.pre":
     source  => 'puppet:///modules/spamassassin/v312.pre',
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
-  file { '/etc/mail/spamassassin/v320.pre':
+  file { "${sa_path}/v320.pre":
     source  => 'puppet:///modules/spamassassin/v320.pre',
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
-  file { '/etc/mail/spamassassin/v330.pre':
+  file { "${sa_path}/v330.pre":
     source  => 'puppet:///modules/spamassassin/v330.pre',
     require => Package[ $package_list ],
-    notify  => Service['spamassassin']
+    notify  => Service[ $sa_service ],
   }
 
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
       content => template('spamassassin/spamassassin-default.erb'),
       require => Package['spamassassin'],
-      notify  => Service['spamassassin'],
+      notify  => Service[ $sa_service ],
     }
   }
 
@@ -112,10 +124,9 @@ class spamassassin (
     minute  => 10,
   }
 
-  service { 'spamassassin':
+  service { $sa_service:
     ensure  => $service_ensure,
     enable  => $service_enable,
     require => Package['spamassassin'],
-    pattern => 'spamd',
   }
 }
