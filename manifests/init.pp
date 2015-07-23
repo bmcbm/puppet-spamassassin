@@ -96,7 +96,7 @@ class spamassassin (
     notify  => Service[ $sa_service ],
   }
 
-  file { "${sa_path}v320.pre":
+  file { "${sa_path}/v320.pre":
     source  => 'puppet:///modules/spamassassin/v320.pre',
     require => Package[ $package_list ],
     notify  => Service[ $sa_service ],
