@@ -28,7 +28,7 @@ class spamassassin (
 
 ) {
   case $::osfamily {
-    RedHat: {
+    'RedHat': {
       $package_list = [
         'perl-Encode-Detect', 'perl-Geography-Countries',
         'perl-IP-Country', 'perl-Mail-DKIM',
@@ -40,7 +40,7 @@ class spamassassin (
       $sa_path = '/etc/mail/spamassassin'
       $sa_service = 'spamassassin'
     }
-    Debian: {
+    'Debian': {
       ## Debian seems to not have the following perl packages.
       ## * perl-IP-Country
       ## * perl-Mail-DomainKeys
@@ -55,7 +55,7 @@ class spamassassin (
       $sa_path = '/etc/mail/spamassassin'
       $sa_service = 'spamassassin'
     }
-    Gentoo: {
+    'Gentoo': {
       $package_list = [
         'spamassassin'
       ]
