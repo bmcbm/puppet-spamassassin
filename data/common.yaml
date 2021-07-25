@@ -1,0 +1,27 @@
+---
+spamassassin::allowedips:       '127.0.0.1'
+spamassassin::allowtell:        false
+spamassassin::blacklist_from:   []
+spamassassin::createprefs:      false
+spamassassin::cron_ensure:      'present'
+spamassassin::helperhomedir:    ''
+spamassassin::listenip:         '127.0.0.1'
+spamassassin::local:            false
+spamassassin::maxchildren:      5
+spamassassin::maxconnperchild:  200
+spamassassin::maxspare:         2
+spamassassin::minchildren:      1
+spamassassin::minspare:         2
+spamassassin::nouserconfig:     false
+spamassassin::package_ensure:   'latest'
+spamassassin::report_safe:      1
+spamassassin::roundrobin:       false
+spamassassin::service_enable:   true
+spamassassin::service_ensure:   'running'
+spamassassin::syslog:           'mail'
+spamassassin::trusted_networks: '' # e.g. '192.168.
+spamassassin::whitelist_from:   []
+spamassassin::sa_update:        ''
+spamassassin::sa_path:          '/etc/mail/spamassassin'
+spamassassin::sa_service:       'spamassassin'
+spamassassin::package_list:     ['spamassassin']

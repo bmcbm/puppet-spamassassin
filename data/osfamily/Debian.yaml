@@ -1,0 +1,11 @@
+---
+spamassassin::helperhomedir: '/var/lib/spamassassin'
+spamassassin::sa_update:     "/usr/bin/sa-update && systemctl reload %{lookup('spamassassin::sa_service')}"
+spamassassin::package_list:
+  - 'libencode-detect-perl'
+  - 'libgeography-countries-perl'
+  - 'libmail-dkim-perl'
+  - 'libmail-spf-perl'
+  - 'libnet-ident-perl'
+  - 'spamassassin'
+  - 'spamc'

@@ -1,0 +1,5 @@
+---
+spamassassin::sa_path:          '/etc/spamassassin'
+spamassassin::sa_service:       'spamd'
+spamassassin::sa_update:        '/usr/bin/sa-update && /etc/init.d/spamd reload'
+
