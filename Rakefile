@@ -19,6 +19,10 @@ task :validate do
   Dir['templates/**/*.erb'].each do |template|
     sh "erb -P -x -T '-' #{template} | ruby -c"
   end
+  Dir['*.yaml','data/**/*.yaml'].each do |yamlfile|
+    sh "ruby -e \"require 'yaml'; YAML.load_file('#{yamlfile}')\""
+  end
+
 end
 
 desc 'Validate that README.md documents all parameters for each class'
@@ -27,3 +31,4 @@ task :validate_readme do
     sh "ext/check_readme.sh #{manifest} README.md"
   end
 end
+
