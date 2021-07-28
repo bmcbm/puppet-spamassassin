@@ -8,8 +8,8 @@ defaults:  # Used for any hierarchy level that omits these keys.
 hierarchy:
   - name: "osfamily"
     paths:
-      - "os/%{facts.os.name}.yaml"
-      - "os/%{facts.os.family}.yaml"
+      - "osfamily/%{facts.os.name}.yaml"
+      - "osfamily/%{facts.os.family}.yaml"
   - name: 'common'
     path: 'common.yaml'
 
