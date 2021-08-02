@@ -41,6 +41,12 @@ class spamassassin (
     ensure => $package_ensure,
   }
 
+  file { "${sa_path}/local.cf":
+    content => template('spamassassin/local.cf.erb'),
+    require => Package[ $package_list ],
+    notify  => Service[ $sa_service ],
+  }
+
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
       content => template('spamassassin/spamassassin-default.erb'),
