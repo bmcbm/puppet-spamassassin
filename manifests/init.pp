@@ -53,6 +53,15 @@ class spamassassin (
       require => Package['spamassassin'],
       notify  => Service[ $sa_service ],
     }
+  } else {
+    # Debian package comes with a nice cronjob in /etc/cron.daily/spamassassin
+    cron { 'sa-update':
+      ensure  => $cron_ensure,
+      command => $sa_update,
+      user    => 'root',
+      hour    => 4,
+      minute  => 10,
+    }
   }
 
   cron { 'sa-update':
