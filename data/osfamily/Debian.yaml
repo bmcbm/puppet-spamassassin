@@ -1,6 +1,7 @@
 ---
 spamassassin::helperhomedir: '/var/lib/spamassassin'
 spamassassin::sa_update:     "/usr/bin/sa-update && systemctl reload %{lookup('spamassassin::sa_service')}"
+spamassassin::sa_user:       'debian-spamd'
 spamassassin::package_list:
   - 'libencode-detect-perl'
   - 'libgeography-countries-perl'

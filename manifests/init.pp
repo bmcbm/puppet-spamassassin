@@ -28,6 +28,7 @@ class spamassassin (
   $sa_update,
   $sa_path,
   $sa_service,
+  $sa_user,
   $package_list,
 ) {
   case $::osfamily {
@@ -47,6 +48,13 @@ class spamassassin (
     notify  => Service[ $sa_service ],
   }
 
+  file { "${sa_path}/sa-update-keys":
+    ensure => 'directory',
+    owner  => $sa_user,
+    group  => $sa_user,
+    mode   => '0700',
+  }
+
   if $::osfamily == 'Debian' {
     file { '/etc/default/spamassassin':
       content => template('spamassassin/spamassassin-default.erb'),
@@ -58,18 +66,10 @@ class spamassassin (
     cron { 'sa-update':
       ensure  => $cron_ensure,
       command => $sa_update,
-      user    => 'root',
+      user    => $sa_user,
       hour    => 4,
       minute  => 10,
     }
-  }
-
-  cron { 'sa-update':
-    ensure  => $cron_ensure,
-    command => $sa_update,
-    user    => 'root',
-    hour    => 4,
-    minute  => 10,
   }
 
   service { $sa_service:

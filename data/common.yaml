@@ -24,4 +24,5 @@ spamassassin::whitelist_from:   []
 spamassassin::sa_update:        ''
 spamassassin::sa_path:          '/etc/mail/spamassassin'
 spamassassin::sa_service:       'spamassassin'
+spamassassin::sa_user:          'spamassassin'
 spamassassin::package_list:     ['spamassassin']
